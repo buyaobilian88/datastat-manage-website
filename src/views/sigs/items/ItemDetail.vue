@@ -52,7 +52,7 @@ const formRadioOption: FormRadioConfig[] = [
 
 const formRadioValue = ref({
   metrics: 'pr',
-  interval: '1d',
+  interval: '1M',
 });
 
 const { community } = useCommonData();
@@ -94,6 +94,7 @@ const queryTotalCount = () => {
       internal: props.commonParams.internal,
       term: 'sig',
     },
+    filter: 'sig',
     operation: 'totalCount',
     start: props.commonParams.start,
     end: props.commonParams.end,
@@ -122,6 +123,7 @@ const queryIncrease = () => {
       interval: formRadioValue.value.interval,
       term: 'sig',
     },
+    filter: 'sig',
     operation: 'increase',
     start: props.commonParams.start,
     end: props.commonParams.end,

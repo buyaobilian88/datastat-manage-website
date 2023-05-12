@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { queryMetricsData } from '@/api/api-sig';
 import { useCommonData } from '@/stores/common';
-import { onMounted, ref, watch,computed } from 'vue';
+import { onMounted, ref, watch, computed } from 'vue';
 import { throttle } from 'lodash-es';
 import { from, Observable, zip } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -49,6 +49,7 @@ const queryMenTotalCount = () => {
       internal: props.commonParams.internal,
       term: 'enterprise',
     },
+    filter: 'company',
     operation: 'totalCount',
     start: props.commonParams.start,
     end: props.commonParams.end,

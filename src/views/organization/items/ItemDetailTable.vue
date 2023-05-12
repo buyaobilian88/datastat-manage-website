@@ -50,17 +50,8 @@ const init = throttle(
     leading: false,
   }
 );
-
-const initData = () => {
-  if (formRadioValue.value.metrics === 'developer') {
-    queryCompanyContribute();
-  } else {
-    queryMenTotalCount();
-  }
-};
-
 // table
-const proTableData = ref<IObject[]>([]);
+const proTableData = ref<any>([]);
 
 const queryCompanyContribute = () => {
   queryTermsOfTotalCount().subscribe((data) => {
@@ -80,6 +71,8 @@ const queryCompanyContribute = () => {
         item.comment,
         comment_total
       )})`,
+      name: termsObj[item.term],
+      children: termsObj[item.term] === '企业' ? companyTableData.value : '',
       ...item,
     }));
   });
@@ -94,19 +87,21 @@ const queryMenTotalCount = () => {
       internal: props.commonParams.internal,
       term: 'enterprise',
     },
+    filter: 'company',
     operation: 'totalCount',
     start: props.commonParams.start,
     end: props.commonParams.end,
   };
   queryMetricsData(param).then((res) => {
     const { data } = res;
-
+    queryCompanyTotalCount();
     pieData.value = data.users.map((item: any) => ({
       type: item.filter,
       D0: `${item.D0 ? item.D0 : '0'}`,
       D1: `${item.D1 ? item.D1 : '0'}`,
       D2: `${item.D2 ? item.D2 : '0'}`,
       ...item,
+      name: item.filter,
     }));
 
     proTableData.value = pieData.value;
@@ -135,6 +130,7 @@ const queryTotalCount = (term: string) => {
         internal: props.commonParams.internal,
         term,
       },
+      filter: 'company',
       operation: 'totalCount',
       start: props.commonParams.start,
       end: props.commonParams.end,
@@ -289,6 +285,57 @@ const getConfig = () => {
   } else {
     tableConfig.value = proTableMenConfig;
     tableColumns.value = columnsMen;
+  }
+};
+
+const companyData = ref();
+const companyTableData = ref();
+const queryCompanyTotalCount = () => {
+  const param = {
+    metrics: ['contributes'],
+    community: community.value,
+    variables: {
+      org: props.commonParams.org,
+      internal: props.commonParams.internal,
+      term: 'enterprise',
+    },
+    filter: 'company',
+    operation: 'totalCount',
+    start: props.commonParams.start,
+    end: props.commonParams.end,
+  };
+  queryMetricsData(param).then((res) => {
+    const { data } = res;
+    let pr_total = 0;
+    let issue_total = 0;
+    let comment_total = 0;
+    data.contributes.forEach((item: any) => {
+      pr_total += item.pr;
+      issue_total += item.issue;
+      comment_total += item.comment;
+    });
+
+    companyData.value = data.contributes.map((item: any) => ({
+      type: item.filter,
+      pr_ratio: `${item.pr} (${calcRatio(item.pr, pr_total)})`,
+      issue_ratio: `${item.issue} (${calcRatio(item.issue, issue_total)})`,
+      comment_ratio: `${item.comment} (${calcRatio(
+        item.comment,
+        comment_total
+      )})`,
+      ...item,
+    }));
+
+    companyTableData.value = companyData.value;
+  });
+};
+
+const initData = () => {
+  if (formRadioValue.value.metrics === 'developer') {
+    queryCompanyContribute();
+    queryCompanyTotalCount();
+  } else {
+    queryMenTotalCount();
   }
 };
 </script>

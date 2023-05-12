@@ -6,3 +6,17 @@
     min-width: 1200px;
     min-height: 800px;
 }
+
+.app-view-login{
+  min-width: 1200px;
+    min-height: 800px;
+    height: 100vh;
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: repeat;
+    background-image: url(@/assets/bg/bg.jpg);
+    // padding-top:80px;
+    display:flex;
+    align-items: center;
+
+}

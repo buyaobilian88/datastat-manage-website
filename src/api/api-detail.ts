@@ -39,7 +39,7 @@ export function queryIDToken() {
  * 获取指定sig活跃度及排名
  */
 export function getSigScore(params: object) {
-  const url = '/query/sig/score';
+  const url = '/api/query/sig/score';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 
@@ -47,7 +47,7 @@ export function getSigScore(params: object) {
  * 获取指定sig雷达图
  */
 export function getSigRadarScore(params: object) {
-  const url = '/query/sig/radarscore';
+  const url = '/api/query/sig/radarscore';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 
@@ -56,7 +56,7 @@ export function getSigRadarScore(params: object) {
  *
  */
 export function queryAll(name: string) {
-  const url = `/query/all?community=${name}`;
+  const url = `/api/query/all?community=${name}`;
   return request.get(url).then((res: AxiosResponse) => res.data);
 }
 
@@ -64,7 +64,7 @@ export function queryAll(name: string) {
  * 查询社区贡献
  */
 export function queryCompanyContribute(params: object) {
-  const url = '/query/company/contribute';
+  const url = '/api/query/company/contribute';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 /**
@@ -72,7 +72,7 @@ export function queryCompanyContribute(params: object) {
  *
  */
 export function queryUserContribute(params: object) {
-  const url = '/query/user/contribute';
+  const url = '/api/query/user/contribute';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 
@@ -81,7 +81,7 @@ export function queryUserContribute(params: object) {
  *
  */
 export function querySigName(name: string) {
-  const url = `/query/sig/name?community=${name}`;
+  const url = `/api/query/sig/name?community=${name}`;
   return request.get(url).then((res: AxiosResponse) => res.data);
 }
 
@@ -89,7 +89,7 @@ export function querySigName(name: string) {
  * 查询sig repos
  */
 export function querySigRepos(params: object) {
-  const url = '/query/sig/repo';
+  const url = '/api/query/sig/repo';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 /**
@@ -97,7 +97,7 @@ export function querySigRepos(params: object) {
  *
  */
 export function querySigScores(params: object) {
-  const url = '/query/sig/sigcsores';
+  const url = '/api/query/sig/sigcsores';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 /**
@@ -105,35 +105,35 @@ export function querySigScores(params: object) {
  *
  */
 export function querySigDetail(params: object) {
-  const url = '/query/sig/sigdetails';
+  const url = '/api/query/sig/sigdetails';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 /**
  * 所有sig活跃度及排名
  */
 export function queryAllSigScores(params: object) {
-  const url = '/query/sig/allsigdetails';
+  const url = '/api/query/sig/allsigdetails';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 /**
  * sig用户的个人贡献
  */
 export function querySigUserContribute(params: object) {
-  const url = '/query/sig/usercontribute';
+  const url = '/api/query/sig/usercontribute';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 /**
  * 社区名字
  */
 export function queryCompanyName(name: string) {
-  const url = `/query/company/name?community=${name}`;
+  const url = `/api/query/company/name?community=${name}`;
   return request.get(url).then((res: AxiosResponse) => res.data);
 }
 /**
  * 社区成员的个人贡献
  */
 export function queryCompanyUserContribute(params: object) {
-  const url = '/query/company/usercontribute';
+  const url = '/api/query/company/usercontribute';
   return request
     .get(url, { params, global: true })
     .then((res: AxiosResponse) => res.data);
@@ -142,7 +142,7 @@ export function queryCompanyUserContribute(params: object) {
  * 社区成员参与的sig的各项指标
  */
 export function queryCompanySigDetails(params: object) {
-  const url = '/query/company/sigdetails';
+  const url = '/api/query/company/sigdetails';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 
@@ -150,14 +150,14 @@ export function queryCompanySigDetails(params: object) {
  * 企业投入的贡献者数量
  */
 export function queryCompanyUsers(params: object) {
-  const url = '/query/company/users';
+  const url = '/api/query/company/users';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 /**
  * 特别兴趣小组活跃度
  */
 export function querySigScoreAll(params: object) {
-  const url = '/query/sig/scoreAll';
+  const url = '/api/query/sig/scoreAll';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 
@@ -165,7 +165,7 @@ export function querySigScoreAll(params: object) {
  * 企业和sig的贡献关系
  */
 export function queryCompanySigs(params: object) {
-  const url = '/query/company/sigs';
+  const url = '/api/query/company/sigs';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 
@@ -174,7 +174,7 @@ export function queryCompanySigs(params: object) {
  *
  */
 export function queryRepos(name: string) {
-  const url = `/query/community/repos?community=${name}`;
+  const url = `/api/query/community/repos?community=${name}`;
   return request.get(url).then((res: AxiosResponse) => res.data);
 }
 
@@ -182,7 +182,7 @@ export function queryRepos(name: string) {
  * sig侧边栏详情
  */
 export function querySigInfo(params: object) {
-  const url = '/query/sig/info';
+  const url = '/api/query/sig/info';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
 
@@ -190,7 +190,7 @@ export function querySigInfo(params: object) {
  * sig下公司贡献
  */
 export function querySigCompanyContribute(params: object) {
-  const url = '/query/sig/company/contribute';
+  const url = '/api/query/sig/company/contribute';
   return request
     .get(url, { params, global: true })
     .then((res: AxiosResponse) => res.data);
@@ -199,7 +199,7 @@ export function querySigCompanyContribute(params: object) {
  *TC组成员所管理的sig组列表
  */
 export function queryTCSigs(params: object) {
-  const url = '/query/TC/sigs';
+  const url = '/api/query/TC/sigs';
   return request
     .get(url, { params, global: true })
     .then((res: AxiosResponse) => res.data);
@@ -209,7 +209,7 @@ export function queryTCSigs(params: object) {
  *公司下sig组明细
  */
 export function queryCompanySigContribute(params: object) {
-  const url = '/query/company/sigcontribute';
+  const url = '/api/query/company/sigcontribute';
   return request
     .get(url, { params, global: true })
     .then((res: AxiosResponse) => res.data);
@@ -219,7 +219,7 @@ export function queryCompanySigContribute(params: object) {
  *个人sig组明细
  */
 export function queryUserSigContribute(params: object) {
-  const url = '/query/user/sigcontribute';
+  const url = '/api/query/user/sigcontribute';
   return request
     .get(url, { params, global: true })
     .then((res: AxiosResponse) => res.data);
@@ -228,7 +228,7 @@ export function queryUserSigContribute(params: object) {
  *个人贡献详情
  */
 export function queryUserContributeDetails(params: object) {
-  const url = '/query/user/contribute/details';
+  const url = '/api/query/user/contribute/details';
   return request
     .get(url, { params, global: true })
     .then((res: AxiosResponse) => res.data);
@@ -237,7 +237,7 @@ export function queryUserContributeDetails(params: object) {
  *个人社区角色
  */
 export function queryUserOwnertype(params: object) {
-  const url = '/query/user/ownertype';
+  const url = '/api/query/user/ownertype';
   return request
     .get(url, { params, global: true })
     .then((res: AxiosResponse) => res.data);
@@ -246,7 +246,7 @@ export function queryUserOwnertype(params: object) {
  *个人社区用户列表
  */
 export function queryUserList(params: object) {
-  const url = '/query/userlist';
+  const url = '/api/query/userlist';
   return request
     .get(url, { params, global: true })
     .then((res: AxiosResponse) => res.data);

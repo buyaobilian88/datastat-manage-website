@@ -44,8 +44,13 @@ export default defineConfig({
         secure: false,
         changeOrigin: true,
       },
+      '/api/': {
+        target: 'https://dsapi.osinfra.cn/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
       '/query/': {
-        target: 'https://omapi.test.osinfra.cn/',
+        target: 'https://dsapi.osinfra.cn/',
         secure: false,
         changeOrigin: true,
       },

@@ -26,3 +26,23 @@ export function queryIDToken(params: any) {
   const url = '/oneid/logout';
   return request.get(url, { params }).then((res: AxiosResponse) => res.data);
 }
+
+/**
+ * 获取授权信息
+ */
+export function queryPermissions(params: object) {
+  const url = '/oneid/user/permissions';
+  return request
+    .get(url, { params, global: true })
+    .then((res: AxiosResponse) => res.data);
+}
+
+/**
+ * 申请组织分析权限
+ */
+export function queryApply(params: object) {
+  const url = '/query/user/permission/apply';
+  return request
+    .get(url, { params, global: true })
+    .then((res: AxiosResponse) => res.data);
+}

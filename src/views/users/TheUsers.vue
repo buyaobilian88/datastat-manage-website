@@ -5,8 +5,8 @@ import { onMounted, ref } from 'vue';
 import UserDetail from './items/UserDetail.vue';
 import UserTotal from './items/UserTotal.vue';
 
-// 默认最近一个月时间
-const timeRange = ref<number[]>([]);
+// 默认全部时间
+const timeRange = ref([new Date('2019-06-01'), new Date()]);
 
 const selectOversea = ref('all');
 const overseaOption: OptionItem[] = [

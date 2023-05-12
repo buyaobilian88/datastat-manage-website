@@ -1,8 +1,6 @@
-import { queryCourse, queryIDToken, refreshUser } from '@/api/api-login';
+import { queryCourse, refreshUser, queryPermissions } from '@/api/api-login';
 import { useLogin } from '@/stores/login';
 import { storeToRefs } from 'pinia';
-import { AuthenticationClient } from 'authing-js-sdk';
-import { IObject } from '@/shared/interface';
 
 const LOGIN_KEYS = {
   USER_TOKEN: '_U_T_',
@@ -50,25 +48,10 @@ export function getUserAuth() {
 }
 
 // 退出登录
-export function logout(
-  param = { community: 'openeuler' },
-  redirectUri = window?.location?.origin
-) {
-  queryIDToken(param).then((res: any) => {
-    saveUserAuth();
-    if (param.community === 'openeuler') {
-      const idToken = res.data.id_token;
-      const client1 = createClient(param.community);
-      const logoutUrl = client1.buildLogoutUrl({
-        expert: true,
-        redirectUri,
-        idToken,
-      });
-      window.location.href = logoutUrl;
-    } else {
-      window.location.href = redirectUri;
-    }
-  });
+export function logout() {
+  location.href = `${import.meta.env.VITE_LOGIN_ORIGIN}/logout?redirect_uri=${
+    window?.location?.origin
+  }`;
 }
 
 // 跳转首页
@@ -76,26 +59,10 @@ export function goToHome() {
   window?.location?.reload();
 }
 
-export function createClient(community = 'openeuler', url?: string) {
-  const lang = getLanguage();
-  const obj: IObject = {
-    openeuler: {
-      appId: '62679eab0b22b146d2ea0a3a',
-      appHost: 'https://datastat.authing.cn',
-      redirectUri:
-        url || `${window?.location?.origin}${window?.location?.pathname}`,
-      lang: lang.language,
-    },
-  };
-  if (obj[community]) {
-    return new AuthenticationClient(obj[community]);
-  }
-  return new AuthenticationClient(obj.openeuler);
-}
 export function showGuard() {
   const origin = import.meta.env.VITE_LOGIN_ORIGIN;
   const { lang } = getLanguage();
-  location.href = `${origin}/login?redirect_uri=${location.href}&lang=${lang}`;
+  location.href = `${origin}/login?redirect_uri=${location.origin}/overview&lang=${lang}`;
 }
 
 // token失效跳转首页
@@ -125,7 +92,16 @@ export function refreshInfo(param = { community: 'openeuler' }) {
       const { data } = res;
       if (Object.prototype.toString.call(data) === '[object Object]') {
         guardAuthClient.value = data;
-        saveUserAuth(token);
+      }
+    });
+    queryPermissions(param).then((res) => {
+      const { data } = res;
+      const { guardData } = useStoreData();
+      if (
+        !guardData.value.username &&
+        Object.prototype.toString.call(data) === '[object Object]'
+      ) {
+        guardData.value = data;
       }
     });
   }
@@ -154,9 +130,16 @@ export function isLogined(param = { community: 'openeuler' }) {
 }
 
 export function hasPermission(per: string) {
-  const { guardAuthClient } = useStoreData();
-  if (Array.isArray(guardAuthClient?.value?.permissions)) {
-    return guardAuthClient.value.permissions.includes(per);
+  const { guardData } = useStoreData();
+  if (Array.isArray(guardData?.value?.permissions)) {
+    return guardData.value.permissions.includes(per);
+  }
+  return false;
+}
+export function hasPermissions(per: string) {
+  const { guardData } = useStoreData();
+  if (Array.isArray(guardData?.value?.companyList)) {
+    return guardData.value.companyList.includes(per);
   }
   return false;
 }

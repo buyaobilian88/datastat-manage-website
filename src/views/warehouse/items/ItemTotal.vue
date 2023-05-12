@@ -49,6 +49,7 @@ const queryTotalCount = () => {
       internal: props.commonParams.internal,
       term: 'repo',
     },
+    filter: 'repo',
     operation: 'totalCount',
     start: props.commonParams.start,
     end: props.commonParams.end,

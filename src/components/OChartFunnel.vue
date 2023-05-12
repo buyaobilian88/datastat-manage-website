@@ -85,8 +85,8 @@ const getOption = (): EChartsOption => {
             return `{total|${info.name}: ${
               info.value
             }}\n{week|周环比: ${calcRatio(
-              (info.data as any).wowratio
-            )}}\n{month|月环比: ${calcRatio((info.data as any).momratio)}}`;
+              (info.data as any).week
+            )}}\n{month|月环比: ${calcRatio((info.data as any).month)}}`;
           },
           rich: {
             total: {

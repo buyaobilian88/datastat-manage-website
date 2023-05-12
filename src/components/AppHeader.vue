@@ -33,10 +33,10 @@ const communityOption = [
     value: 'openeuler',
     label: 'openEuler',
   },
-  {
-    value: 'opengauss',
-    label: 'openGauss',
-  },
+  // {
+  //   value: 'opengauss',
+  //   label: 'openGauss',
+  // },
 ];
 </script>
 

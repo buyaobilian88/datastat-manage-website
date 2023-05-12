@@ -79,6 +79,7 @@ const queryDetail = () => {
         internal: props.commonParams.internal,
         interval: formRadioValue.value.interval,
       },
+      filter: 'user',
       operation: formRadioValue.value.operation,
       start: props.commonParams.start,
       end: props.commonParams.end,
@@ -123,8 +124,10 @@ const queryDevelop = () => {
       variables: {
         org: props.commonParams.org,
         interval: formRadioValue.value.interval,
+        internal: props.commonParams.internal,
         term: formRadioValue.value.metrics,
       },
+      filter: 'user',
       operation: formRadioValue.value.operation,
       start: props.commonParams.start,
       end: props.commonParams.end,
@@ -196,7 +199,7 @@ const formRadioOption: FormRadioConfig[] = [
 const formRadioValue = ref({
   metrics: 'D1',
   operation: 'increase',
-  interval: '1d',
+  interval: '1M',
 });
 
 const PROption = computed(() =>
@@ -240,6 +243,7 @@ const clickSeries = (res: any) => {
       internal: props.commonParams.internal,
       interval: formRadioValue.value.interval,
     },
+    filter: 'user',
     operation: `${formRadioValue.value.operation}Detail`,
     start: start,
     end: start + timeObj[formRadioValue.value.interval],

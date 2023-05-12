@@ -14,7 +14,7 @@ import { ECHARTOPTION } from './shared/common.const';
 ECharts.registerTheme('dark', ECHARTOPTION);
 
 const app = createApp(App);
-app.use(vue3JsonExcel)
+app.use(vue3JsonExcel);
 app.use(createPinia());
 app.use(ElementPlus);
 app.use(OpenDesign);

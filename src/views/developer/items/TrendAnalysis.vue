@@ -18,22 +18,22 @@ const D0Data = ref([
     key: 'D0',
     name: 'D0',
     value: 0,
-    momratio: 0,
-    wowratio: 0,
+    month: 0,
+    week: 0,
   },
   {
     key: 'D1',
     name: 'D1',
     value: 0,
-    momratio: 0,
-    wowratio: 0,
+    month: 0,
+    week: 0,
   },
   {
     key: 'D2',
     name: 'D2',
     value: 0,
-    momratio: 0,
-    wowratio: 0,
+    month: 0,
+    week: 0,
   },
 ]);
 
@@ -52,6 +52,7 @@ watch(
 const initData = throttle(
   function () {
     getTotalCount();
+    getTotal();
   },
   50,
   {
@@ -61,7 +62,7 @@ const initData = throttle(
 
 const getTotalCount = () => {
   // operation循环赋值请求
-  const arr = ['totalCount', 'wowratio', 'momratio'];
+  const arr = ['week', 'month'];
   const operations = from(arr);
   operations
     .pipe(
@@ -94,8 +95,10 @@ const queryTotalCount = (operation: string) => {
       variables: {
         org: props.commonParams.org,
         internal: props.commonParams.internal,
+        term: operation,
       },
-      operation,
+      filter: 'user',
+      operation: 'ratio',
       start: props.commonParams.start,
       end: props.commonParams.end,
     };
@@ -121,11 +124,31 @@ const queryTotalCount = (operation: string) => {
       });
   });
 };
+
+const getTotal = () => {
+  const param = {
+    metrics: ['D0', 'D1', 'D2'],
+    community: community.value,
+    variables: {
+      org: props.commonParams.org,
+      internal: props.commonParams.internal,
+    },
+    filter: 'user',
+    operation: 'totalCount',
+    start: props.commonParams.start,
+    end: props.commonParams.end,
+  };
+  queryMetricsData(param).then((res) => {
+    D0Data.value[0].value = res.data.D0;
+    D0Data.value[1].value = res.data.D1;
+    D0Data.value[2].value = res.data.D2;
+  });
+};
 </script>
 <template>
   <div class="card-grid">
     <OChartFunnel :data="D0Data"></OChartFunnel>
-    <OInstruction/>
+    <OInstruction />
   </div>
 </template>
 <style lang="scss" scoped>

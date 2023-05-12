@@ -71,6 +71,7 @@ const queryDetail = () => {
         oversea: props.commonParams.oversea,
         interval: formRadioValue.value.interval,
       },
+      filter: 'download',
       operation: formRadioValue.value.operation,
       start: props.commonParams.start,
       end: props.commonParams.end,
@@ -141,7 +142,7 @@ const formRadioOption: FormRadioConfig[] = [
 const formRadioValue = ref({
   metrics: 'download_count',
   operation: 'increase',
-  interval: '1d',
+  interval: '1M',
 });
 </script>
 <template>

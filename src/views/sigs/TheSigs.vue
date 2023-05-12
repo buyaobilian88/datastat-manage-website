@@ -5,8 +5,8 @@ import { OptionItem } from '@/shared/interface';
 import ItemDetail from './items/ItemDetail.vue';
 import ItemTotal from './items/ItemTotal.vue';
 
-// 默认最近一个月时间
-const timeRange = ref<number[]>([]);
+// 默认全部时间
+const timeRange = ref([new Date('2019-06-01'), new Date()]);
 
 const selectValue = ref('all');
 const communityOption: OptionItem[] = [

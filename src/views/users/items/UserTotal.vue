@@ -47,6 +47,7 @@ const queryTotalCount = () => {
     variables: {
       oversea: props.commonParams.oversea,
     },
+    filter: 'download',
     operation: 'totalCount',
     start: props.commonParams.start,
     end: props.commonParams.end,

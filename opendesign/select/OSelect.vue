@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/* eslint-disable */
 import { useAttrs, nextTick, onMounted, onUnmounted, computed } from 'vue';
 import { debounce } from 'lodash-es';
 
@@ -15,7 +16,7 @@ const emit = defineEmits(['scorll-bottom']);
 const debounceEvent = debounce(
   function () {
     const isBottom =
-      this.scrollHeight - this.scrollTop - 10 <= this.clientHeight;
+      this.scrollHeight - this.scrollTop - 10 <= this.clientHeight;// eslint-disable-line
     if (isBottom) {
       emit('scorll-bottom');
     }

@@ -77,23 +77,9 @@ onMounted(() => {
     filterTableData();
   }
 });
-
 // 列显示隐藏
 const columnList = ref<any>([]);
-watch(
-  () => [props.tableConfig, props.id],
-  () => {
-    columnList.value = props.tableConfig
-      .map((item) => {
-        if (item.children) {
-          return item.children.map((it) => it.key);
-        }
-        return item.key;
-      })
-      .flat();
-    checkedColumnList.value = getCheckedColumnList() || columnList.value;
-  }
-);
+
 const getColumnLabel = computed(() => {
   return props.tableConfig.reduce((pre, next) => {
     if (next.children) {
@@ -118,7 +104,7 @@ const getCheckedColumnList = () => {
     return null;
   }
 };
-const checkedColumnList = ref(getCheckedColumnList() || columnList.value);
+const checkedColumnList = ref<any>([]);
 const setCheckedColumnList = (key: string) => {
   if (checkedColumnList.value.includes(key)) {
     checkedColumnList.value = checkedColumnList.value.filter(
@@ -222,6 +208,21 @@ const sizeChange = () => {
   currentPage.value = 1;
   filterTableData();
 };
+watch(
+  () => [props.tableConfig, props.id],
+  () => {
+    columnList.value = props.tableConfig
+      .map((item) => {
+        if (item.children) {
+          return item.children.map((it) => it.key);
+        }
+        return item.key;
+      })
+      .flat();
+    checkedColumnList.value = getCheckedColumnList() || columnList.value;
+  },
+  { immediate: true, deep: true }
+);
 </script>
 <template>
   <div :style="{ 'max-height': calcContainerHeight, width }">

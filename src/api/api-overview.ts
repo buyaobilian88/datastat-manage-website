@@ -6,7 +6,7 @@ import type { AxiosResponse } from '@/shared/axios';
  *
  */
  export function queryAll(name: string) {
-  const url = `/query/all?community=${name}`;
+  const url = `/api/query/all?community=${name}`;
   return request.get(url).then((res: AxiosResponse) => res.data);
 }
 

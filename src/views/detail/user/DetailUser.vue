@@ -1,70 +1,28 @@
 <template>
   <div class="container">
-    <!-- <o-anchor :data="anchorData" top="11rem"></o-anchor> -->
     <div class="wrap">
-      <div class="step">
-        <span class="step-one">'nav.contributors'</span>
-        <span> > sencondTitle</span>
-      </div>
       <div class="main">
         <div class="main-left">
-          <div class="main-left-top">
-            <!-- <div class="edropdown">
-              <el-dropdown
-                placement="bottom-start"
-                @visible-change="showDropdown"
-              >
-                <div class="main-left-title">
-                  {{ sencondTitle }}
-                  <span class="btnc"></span>
-                </div>
-
-                <template #dropdown>
-                  <div class="searchInput">
-                    <el-input
-                      v-model="searchInput"
-                      clearable
-                      :debounce="300"
-                      class="w-50 m-2"
-                      :placeholder="t('enterGitee')"
-                      :prefix-icon="Search"
-                      @input="querySearch"
-                      @clear="clearSearchInput"
-                    />
-                  </div>
-                  <el-scrollbar ref="scrollbarRef" height="400px">
-                    <el-dropdown-item
-                      v-for="item in reallData"
-                      :key="item.value"
-                      @click="clickDrownItem(item as any)"
-                    >
-                      {{ item }}
-                    </el-dropdown-item>
-                  </el-scrollbar>
-                </template>
-              </el-dropdown>
-            </div> -->
-          </div>
           <div class="main-left-sp">
-            <div class="userInfo">
-              <div class="title">'individual'</div>
-            </div>
+            <!-- <div class="userInfo">
+              <div class="title">个人简介</div>
+            </div> -->
             <div class="first">
               <div class="home"></div>
               <div class="toHome">
                 <a
                   style="color: #002fa7"
                   target="_blank"
-                  :href="`https://gitee.com/`"
+                  :href="`https://gitee.com/${props.user.org}`"
                 >
-                  'toHome'</a
+                  前往主页</a
                 >
               </div>
             </div>
             <div class="firstLast">
               <div class="Maintainer"></div>
               <div class="List">
-                <span>'community'： </span>
+                <span>社区角色： </span>
                 <span v-for="items in sigInfo" :key="items.value" class="item">
                   <span
                     v-if="items.sig === 'TC'"
@@ -98,21 +56,21 @@
                 </span>
               </div>
             </div>
-            <data-show :user="'jwzhangcn'"></data-show>
+            <data-show :user="props.user.org"></data-show>
           </div>
         </div>
         <div class="main-right">
           <div class="contributors-panel">
             <h3 id="SIGContribution" class="title">
-              <!-- {{ sencondTitle + ' ' + t('SIGContribution') }} -->
+              {{ props.user.org }} SIG贡献
             </h3>
-            <sig-contribution :user="'jwzhangcn'"></sig-contribution>
+            <sig-contribution :user="props.user.org"></sig-contribution>
           </div>
           <div class="contributors-panel-last">
             <h3 id="DynamicContribute" class="title">
-              <!-- {{ sencondTitle + ' ' + t('DynamicContribute') }} -->
+              {{ props.user.org }} 贡献动态
             </h3>
-            <contribution-dynamic :sig="'gaoruoshu'"></contribution-dynamic>
+            <contribution-dynamic :sig="props.user.org"></contribution-dynamic>
           </div>
         </div>
       </div>
@@ -122,10 +80,16 @@
 
 <script setup lang="ts">
 import { queryUserList, queryUserOwnertype } from '@/api/api-detail';
-import { ref, onMounted, watch, reactive, toRefs,computed } from 'vue';
+import { ref, onMounted, watch, reactive, toRefs, computed } from 'vue';
 import DataShow from './DataShow.vue';
 import SigContribution from './SigContribution.vue';
-import ContributionDynamic from './ContributionDynamic.vue'
+import ContributionDynamic from './ContributionDynamic.vue';
+const props = defineProps({
+  user: {
+    type: Object,
+    required: true,
+  },
+});
 interface IObject<T = any> {
   [key: string]: T;
 }
@@ -140,7 +104,7 @@ const querySigInfoData = () => {
   };
   queryUserOwnertype(params).then((data) => {
     sigInfo.value = data?.data || {};
-    sigInfo.value.sort((a: any, b: any) =>
+    sigInfo.value?.sort((a: any, b: any) =>
       a['sig'].localeCompare(b['sig'], 'zh')
     );
     sigInfo.value.forEach((item: any, index: any) => {
@@ -157,7 +121,6 @@ const querySigInfoData = () => {
   });
 };
 querySigInfoData();
-
 </script>
 
 <style lang="scss" scoped>

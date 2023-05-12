@@ -1,4 +1,4 @@
-/// <reference types="vite/client" />
+// / <reference types="vite/client" />
 
 declare module '*.vue' {
   import type { DefineComponent } from 'vue';
@@ -6,6 +6,7 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+declare module 'vue3-json-excel';
 declare module '*.svg';
 declare module '*.png';
 declare module '*.jpg';

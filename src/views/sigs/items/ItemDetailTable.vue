@@ -111,6 +111,7 @@ const queryTotalCount = () => {
       internal: props.commonParams.internal,
       term: 'sig',
     },
+    filter: 'sig',
     operation: 'totalCount',
     start: props.commonParams.start,
     end: props.commonParams.end,
@@ -149,6 +150,7 @@ const queryMenTotalCount = () => {
       internal: props.commonParams.internal,
       term: 'sig',
     },
+    filter: 'sig',
     operation: 'totalCount',
     start: props.commonParams.start,
     end: props.commonParams.end,
@@ -187,7 +189,7 @@ const tableColumns = ref<any>({
   pr: 'pr_ratio',
   Issue: 'issue_ratio',
   comment: 'comment_ratio',
-})
+});
 const columnsContributes = {
   sig名称: 'type',
   pr: 'pr_ratio',
