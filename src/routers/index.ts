@@ -10,9 +10,9 @@ import TheUser from '@/views/detail/user/TheUser.vue';
 import TheSig from '@/views/detail/sig/TheSig.vue';
 import TheCompany from '@/views/detail/company/TheCompany.vue';
 import TheStudent from '@/views/detail/student/TheStudent.vue';
-import TheLogin from '@/views/login/TheLogin.vue'
+import TheLogin from '@/views/login/TheLogin.vue';
 import { useCommonData } from '@/stores/common';
-import { getUserAuth, } from '@/shared/utils/login';
+import { getUserAuth } from '@/shared/utils/login';
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/login' },
   {
@@ -82,17 +82,18 @@ export const router = createRouter({
 const { token } = getUserAuth();
 // 路由守卫，可在此处进行页面权限处理
 router.beforeEach((to, from, next) => {
-  // const { selectAsideItem } = useCommonData();
-  // selectAsideItem.value = to.path;
-  // next();
-
-  if (to.path === '/login'|| token) {
+  // if (token) {
+  //   if (to.path === '/login') {
+  //     next('/overview');
+  //   } else {
+  //     next();
+  //   }
+  // } else {
+  //   next('/login');
+  // }
+  if (to.path === '/login' || token) {
     next();
-}
-// else if(to.path === '/detailcompany' && !hasPermission('companyread_all')){
-//   next('/');
-// }
- else {
+  } else {
     next('/login');
-}
+  }
 });
