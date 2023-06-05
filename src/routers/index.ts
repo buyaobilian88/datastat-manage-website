@@ -82,23 +82,10 @@ export const router = createRouter({
 const { token } = getUserAuth();
 // 路由守卫，可在此处进行页面权限处理
 router.beforeEach((to, from, next) => {
-  // if (to.path === '/login' || token) {
-  //   next();
-  // } else {
-  //   next('/login');
-  // }
-  if (token) {
+  if (to.path === '/login' || token) {
     next();
   } else {
     next('/login');
   }
-  if (to.path === '/login') {
-    if (token) {
-      next({
-        path: '/overview',
-      });
-    } else {
-      next();
-    }
-  }
+
 });

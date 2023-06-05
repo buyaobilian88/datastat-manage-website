@@ -1,9 +1,20 @@
 <script lang="ts" setup>
-import { OButton } from '@/components/button';
-import OIcon from '@/components/OIcon.vue';
-import { showGuard } from '@/shared/utils/login';
-import IconArrowRight from '~icons/app/icon-arrow-right.svg';
-import notFoundImg from '@/assets/404.png';
+import { OButton } from "@/components/button";
+import OIcon from "@/components/OIcon.vue";
+import { showGuard } from "@/shared/utils/login";
+import IconArrowRight from "~icons/app/icon-arrow-right.svg";
+import notFoundImg from "@/assets/404.png";
+import { useRouter, useRoute } from "vue-router";
+import { getUserAuth } from "@/shared/utils/login";
+const { token } = getUserAuth();
+const router = useRouter();
+const goView = () => {
+  if (token) {
+    router.push("/overview");
+  } else {
+  }
+};
+goView()
 </script>
 <template>
   <div class="login">
